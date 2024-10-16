@@ -1,0 +1,40 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Kline DW",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": [
+                "--start",
+                "20240101",
+                "--end",
+                "20241013"
+            ]
+        },
+        {
+            "name": "Trading Simulator",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.py",  // replace with your script name
+            "args": [
+                "--policy_name", "PPO",
+                //"--feature_extractor", "CustomTradingPPOPolicy",  // replace with your feature extractor if needed
+                "--hidden_size", "128",
+                "--num_episodes", "10",
+                "--ticker", "ETHUSDT",
+                "--start_date", "20240101",
+                "--end_date", "20240630",
+                "--verbose", "1",
+                "--total_training_steps", "10000"
+            ],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
