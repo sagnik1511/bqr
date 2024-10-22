@@ -12,7 +12,7 @@ class TradingSimulator(gym.Env):
     def __init__(self, data):
         super(TradingSimulator, self).__init__()
         self.data = data
-        self.balance = 100_000_000
+        self.balance = 100000
         self.value = self.balance
         self.acquired_shares = 0
         self.curr_step = 0
@@ -27,7 +27,6 @@ class TradingSimulator(gym.Env):
 
     def _get_observation(self):
         curr_info = self.data[self.curr_step]
-        self.history.append(self._get_observation())
         return np.array(
             [
                 curr_info["open"],
@@ -43,7 +42,7 @@ class TradingSimulator(gym.Env):
 
     def reset(self, seed=0):
         np.random.seed(seed)
-        self.balance = 100_000_000
+        self.balance = 100000
         self.value = self.balance
         self.acquired_shares = 0
         self.curr_step = 0
@@ -83,13 +82,23 @@ class TradingSimulator(gym.Env):
 
     def render(self, mode="human"):
         curr_price = self.data[self.curr_step]["close"]
+        self.history.append(
+            [
+                self.curr_step + 1,
+                curr_price,
+                self.balance,
+                self.acquired_shares,
+                self.value,
+                self.value - 100000,
+            ]
+        )
         info = [
             ["Step", self.curr_step + 1],
             ["Price", curr_price],
             ["Balance", self.balance],
             ["Shares Acquired", self.acquired_shares],
             ["Portfolio Value", self.value],
-            ["Gross Earnings", self.value - 100_000_000],
+            ["Gross Earnings", self.value - 100000],
         ]
 
         print(tabulate(info, tablefmt="grid"))

@@ -26,12 +26,12 @@
                 "--policy_name", "PPO",
                 //"--feature_extractor", "CustomTradingPPOPolicy",  // replace with your feature extractor if needed
                 "--hidden_size", "128",
-                "--num_episodes", "10",
+                "--num_episodes", "1",
                 "--ticker", "ETHUSDT",
                 "--start_date", "20240101",
                 "--end_date", "20240630",
                 "--verbose", "1",
-                "--total_training_steps", "10000"
+                "--total_training_steps", "100000"
             ],
             "console": "integratedTerminal",
             "justMyCode": true
