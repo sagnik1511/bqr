@@ -37,11 +37,11 @@ class Simulator:
 
     def _fetch_policy(self):
         if self.policy_name == "PPO":
-            # policy = (
-            #     importlib.import_module(f"nn.{self.feature_extractor}")
-            #     if self.feature_extractor
-            #     else nn.CustomTradingPPOPolicy
-            # )
+            policy = (
+                importlib.import_module(f"nn.{self.feature_extractor}")
+                if self.feature_extractor
+                else nn.CustomTradingPPOPolicy
+            )
             policy = "MlpPolicy"
             # policy_kwargs = dict(hidden_size=self.hidden_size)
             model = PPO(

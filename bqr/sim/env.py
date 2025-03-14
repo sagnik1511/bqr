@@ -1,10 +1,11 @@
 """Trading Simulator for SPOT Trading"""
 
+import csv
+
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 from tabulate import tabulate
-import pandas as pd
 
 
 class TradingSimulator(gym.Env):
@@ -104,15 +105,30 @@ class TradingSimulator(gym.Env):
         print(tabulate(info, tablefmt="grid"))
 
     def save_history(self):
-        hist_df = pd.DataFrame(
-            self.history,
-            columns=[
-                "step",
-                "price",
-                "balance",
-                "shares_acquired",
-                "portfolio_value",
-                "gross_earnings",
-            ],
-        )
-        hist_df.to_csv("simulation.csv", index=False)
+        with open("final_simulation_result.csv", "w") as f:
+            writer = csv.DictWriter(
+                f,
+                fieldnames=[
+                    "step",
+                    "price",
+                    "balance",
+                    "shares_acquired",
+                    "portfolio_value",
+                    "gross_earnings",
+                ],
+                delimiter=",",
+                lineterminator=",\n",
+            )
+            writer.writeheader()
+
+            for row in self.history:
+                row_dict = {
+                    "step": row[0],
+                    "price": row[1],
+                    "balance": row[2],
+                    "shares_acquired": row[3],
+                    "portfolio_value": row[4],
+                    "gross_earnings": row[5],
+                }
+                writer.writerow(row_dict)
+        print("Simulation result saved to final_simulation_result.csv")
